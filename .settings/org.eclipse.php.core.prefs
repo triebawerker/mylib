@@ -1,0 +1,6 @@
+#Wed Dec 15 22:11:01 CET 2010
+eclipse.preferences.version=1
+include_path=0;/quickstart\u00055;org.zend.php.framework.CONTAINER
+org.eclipse.php.core.phpDoc=false
+phpVersion=php5
+use_asp_tags_as_php=false

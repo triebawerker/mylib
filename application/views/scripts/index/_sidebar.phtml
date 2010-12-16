@@ -1,0 +1,11 @@
+
+      <?php $this->placeholder('sidebar')->captureStart() ?>
+      <h4>User Administration</h4>
+      <ul>
+          <li><a href="<?php $this->url(array('action' => 'list')) ?>">
+              List</a></li>
+          <li><a href="<?php $this->url(array('action' => 'create')) ?>">
+              Create</a></li>
+      </ul>
+
+      <?php $this->placeholder('sidebar')->captureEnd() ?>

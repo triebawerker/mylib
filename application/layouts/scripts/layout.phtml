@@ -1,0 +1,40 @@
+      <!-- application/layouts/scripts/layout.phtml -->
+ 
+      <?php echo $this->doctype() ?>
+ 
+      <html xmlns="http://www.w3.org/1999/xhtml">
+ 
+      <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>My Bibliography</title>
+        <?php echo $this->headLink()->appendStylesheet('/css/style.css') ?>
+      </head>
+      <body>
+      <div id="header">
+          <div id="header-logo" style="float: left">
+              <b>My Bibliography</b>
+          </div>
+          <div id="header-navigation" style="float: right">
+              <a href="<?php echo $this->url(array('controller'=>'guestbook'),'default', true) ?>">Guestbook</a>
+              <a href="<?php echo $this->url(array('controller'=>'publisher'),'default', true) ?>">Publisher</a>
+          </div>
+      </div>
+      <div id="sidebar">
+      <p>sidebar</p>
+	  	<?php echo $this->placeholder('sidebar') ?>
+	  </div>
+	  
+	  <div id="content">
+      	<?php echo $this->layout()->content ?>
+      </div>
+      
+	<div id="footer">
+        <p>Helpful Links: <br />
+            <a href="http://framework.zend.com/">Zend Framework Website</a> |
+            <a href="http://framework.zend.com/manual/en/">Zend Framework Manual</a>
+     	</p>
+	</div>
+      </body>
+      </html>
