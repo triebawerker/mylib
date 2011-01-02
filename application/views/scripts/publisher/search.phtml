@@ -1,0 +1,8 @@
+<?php echo "search: " . $this->form; ?>
+<?php if(isset($this->result)): ?>
+	<?php foreach($this->result AS $k => $v): ?>
+		<?php echo "res: " . $v . "<br>"; ?>
+	<?php endforeach; ?>
+<?php endif; ?>
+<?php var_dump($_POST); ?>
+<?php var_dump($this->result); ?>

@@ -1,0 +1,12 @@
+
+      <?php $this->placeholder('sidebar')->captureStart() ?>
+      <h4>Publisher</h4>
+      <ul>
+          <li><a href="<?php echo $this->url(array('action'=>'list')) ?>">list</a></li>
+          <li><a href="<?php echo $this->url(array('action' => 'search')) ?>">search</a></li>
+          <li><a href="<?php echo $this->url(array('action' => 'add')) ?>">add</a></li>
+          <li><a href="<?php echo $this->url(array('action' => 'edit')) ?>?id=<?php echo $_GET['id']?>">edit</a></li>
+          <li><a href="<?php echo $this->url(array('action' => 'delete')) ?>">delete</a></li>
+      </ul>
+
+      <?php $this->placeholder('sidebar')->captureEnd() ?>
