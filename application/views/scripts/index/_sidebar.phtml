@@ -2,10 +2,11 @@
       <?php $this->placeholder('sidebar')->captureStart() ?>
       <h4>User Administration</h4>
       <ul>
-          <li><a href="<?php $this->url(array('action' => 'list')) ?>">
-              List</a></li>
-          <li><a href="<?php $this->url(array('action' => 'create')) ?>">
-              Create</a></li>
+          <li><a href="<?php $this->baseUrl() ?>">list</a></li>
+          <li><a href="<?php $this->url(array('action' => 'search')) ?>">search</a></li>
+          <li><a href="<?php $this->url(array('action' => 'add')) ?>">add</a></li>
+          <li><a href="<?php $this->url(array('action' => 'edit')) ?>">edit</a></li>
+          <li><a href="<?php $this->url(array('action' => 'delete')) ?>">delete</a></li>
       </ul>
 
       <?php $this->placeholder('sidebar')->captureEnd() ?>

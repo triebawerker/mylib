@@ -1,5 +1,5 @@
 <?php
-
+require_once 'IndexController.php';
 /**
  * Guestbook controller
  *
@@ -10,7 +10,7 @@
  * @package    QuickStart
  * @subpackage Controller
  */
-class GuestbookController extends Zend_Controller_Action
+class GuestbookController extends IndexController
 {
     /**
      * The index, or landing, action will be concerned with listing the entries 

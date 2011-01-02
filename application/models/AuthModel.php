@@ -1,13 +1,11 @@
 <?php
+require_once 'DbConnection.php';
+
 class Application_Model_AuthModel
 {
-    private $_db;
-    private $_auth;
-    private $_opts = array('host' => 'localhost',
-					  'username' => 'admin',
-					  'password' => 'micha',
-					  'dbname' => 'bibliography'		 
-				  	);
+	
+	private static $auth;
+	
 	/**
 	 * protected
 	 */
@@ -15,29 +13,24 @@ class Application_Model_AuthModel
 	{				  
 
     }
-    
-    /**
-     * 
-     * Singleton
-     */
+
     public static function setUpAuthAdapter()
     {
-    	if(isset($this->$auth)) {
-    		return $this->$auth;
-    	} else {
+
     	
-    	//set db adapter
-		$this->_db = Zend_Db::factory('Pdo_Mysql', $this->opts);
+		$db = Application_Model_DbConnection::getConnection();
 		
 		//set auth class
-		$this->_auth = new Zend_Auth_Adapter_DbTable($this->db);
+		$auth = new Zend_Auth_Adapter_DbTable($db);
 		
 		//set table and column name
-		$this->_auth->setTableName('user')
+		$auth->setTableName('user')
 		     ->setIdentityColumn('user_name')
 		     ->setCredentialColumn('password');
-		return $this->$auth;
+		     
+		self::$auth = $auth;
+		return $auth;
     	}
-    }
+    
 }
 ?>

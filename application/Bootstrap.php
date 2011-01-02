@@ -50,8 +50,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
              // "postfix" -> markup to emit once after all items in a collection
 
              ->setPostfix("</div>\n</div>");
-
     }
+    
 
 }
 

@@ -5,7 +5,13 @@ class IndexController extends Zend_Controller_Action
 
     public function init()
     {
-        /* Initialize action controller here */
+        //redirect to login if no login session user is set
+    	$authSession = new Zend_Session_Namespace('auth');
+		if (isset($authSession->user)) {
+			$this->view->auth = $authSession->user;
+		} else {
+			$this->_redirect('login/index');
+		}
     }
 
     public function indexAction()
@@ -16,9 +22,7 @@ class IndexController extends Zend_Controller_Action
     public function preDispatch()
 
     {
-
         $this->view->render('index/_sidebar.phtml');
-
     }
 }
 
