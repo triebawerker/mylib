@@ -1,6 +1,8 @@
 
 <?php if($this->listPublisher !== NULL):?>
 	<?php foreach($this->listPublisher AS $key => $publisher): ?>
-		<a href=" <?php echo $this->url(array('action' => 'show')) . '?id=' . $publisher['id']; ?> "> <?php echo $publisher['publisher'] ?> </a><br>
+		<a href=" <?php echo $this->url(array('action' => 'show'))
+		                     . '?id=' . $publisher['id']; ?> ">
+		          <?php echo $publisher['publisher'] ?> </a><br>
 	<?php endforeach; ?>
 <?php endif; ?>

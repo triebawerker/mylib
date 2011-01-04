@@ -5,9 +5,13 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach($this->listPublication AS $num => $value): ?>
+		<?php foreach($this->listPublication AS $num => $publication): ?>
 		<tr>
-			<td><?php echo $value['publication']; ?></td>
+			<td>
+				<a href=" <?php echo $this->url(array('action' => 'show'))
+		                     . '?id=' . $num; ?> ">
+		          <?php echo $publication ?> </a>
+			</td>
 		</tr>
 	<?php endforeach; ?>
 	</tbody>

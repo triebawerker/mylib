@@ -69,9 +69,30 @@ class Application_Form_DbForm
 		$form = new Zend_Form();
 		$form->setAction('insert')
 			 ->setMethod('post')
+			 ->addElement('hidden', 'status',
+			 	array('value' => 'insert'))	
 			 ->addElement('text', 'publication',
 			 	array('label' => 'Publication')
-			 	);
+			 	)
+			 ->addElement('submit', 'save');
+	    return $form;
+	}
+	
+	public static function updatePublication($data)
+	{
+		$form = new Zend_Form();
+		$form->setAction('update')
+			 ->setMethod('post')
+			 ->addElement('hidden', 'status',
+			 	array('value' => 'update'))
+			 ->addElement('hidden', 'id',
+			 	array('value' => $data['id']))
+			 ->addElement('text', 'publication',
+			 	array('label' => 'Publication',
+			 		  'value' => $data['publication'])
+			 	)
+			 ->addElement('submit', 'save');
+		return $form;
 	}
 }
 
