@@ -77,20 +77,40 @@ class Application_Form_DbForm
 			 ->addElement('submit', 'save');
 	    return $form;
 	}
-	
-	public static function updatePublication($data)
-	{
+	public static function updatePublication($publicationData, $publisherData, $currentPublisher)
+	{	
+		//set up select for publisher
+
+	 	$publisher = new Zend_Form_Element_Select('publisher_id');
+	 	$publisher->setLabel('select Publisher');
+	 	if('' != $currentPublisher) {
+ 			$publisher->addMultiOption($currentPublisher[0],$currentPublisher[1]);
+	 	}
+	 	$publisher->addMultiOptions($publisherData);
+	    //display current value if set
+	 		
+
+	 	
+	 	//set up select for authors micha
+		$optionAuthors = array(
+			'label' => 'Author',
+			'multioptions' => array( 1 => 'Auth1', 2 => 'Auth2')
+			);
+		$authors = new Zend_Form_Element_Select('authors', $optionAuthors);
+	  
 		$form = new Zend_Form();
 		$form->setAction('update')
 			 ->setMethod('post')
 			 ->addElement('hidden', 'status',
 			 	array('value' => 'update'))
 			 ->addElement('hidden', 'id',
-			 	array('value' => $data['id']))
+			 	array('value' => $publicationData['id']))
 			 ->addElement('text', 'publication',
 			 	array('label' => 'Publication',
-			 		  'value' => $data['publication'])
+			 		  'value' => $publicationData['publication'])
 			 	)
+			 ->addElement($publisher)
+			 ->addElement($authors)		 	
 			 ->addElement('submit', 'save');
 		return $form;
 	}

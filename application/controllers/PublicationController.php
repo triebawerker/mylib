@@ -1,15 +1,15 @@
 <?php
-/**
- * require IndexController.php
- */
 require_once 'IndexController.php';
 
 /**
  *Class PublicationController
+ *CRUD for publication
+ *@author micha
  */
 
 class PublicationController extends IndexController
 {
+	
 	public function preDispatch()
     {
         $this->view->render('publication/_sidebar.phtml');
@@ -34,13 +34,15 @@ class PublicationController extends IndexController
 	public function insertAction()
 	{
 		//insert new data and redirect to showAction if insert succeeds
-		if(isset($_POST['publication']) AND $_POST['status'] == insert){
-			$data = array('publication' => $_POST['publication']);
-			$addPublication = new Application_Model_Publication();
-			$id = $addPublication->addPublication($data);
+		if ($this->getRequest()->isPost()
+			&& isset($this->getRequest()->publication)
+			&& $this->getRequest()->status == insert) {
+				
+			$data = array('publication' => $this->getRequest()->publication);
+			$id = $this->_publicationModel->addPublication($data);
 			
 			//go to show action if update succeded or display error
-			if(0 != $id || NULL !== $id) {
+			if (0 != $id || NULL !== $id) {
 				$this->_redirect('publication/show?id=' . $id);			
 			} else {
 				$this->error = 'update failed, please try again';
@@ -63,9 +65,8 @@ class PublicationController extends IndexController
 	{
 		$id = $this->getRequest()->id;
 		
-		$getPublication = new Application_Model_Publication();
 		//get selected id
-		$result = $getPublication->getPublication($id);
+		$result = $this->_publicationModel->getPublication($id);
 		$publication = $result->toArray();
 		$this->view->publication = $publication;
 	}
@@ -77,10 +78,9 @@ class PublicationController extends IndexController
 	 */
 	public function listAction()
 	{
-		$listPublication = new Application_Model_Publication();
-		$list = $listPublication->listPublication();
+		$list = $this->_publicationModel->listPublication();
 		$list->toArray();
-		foreach($list AS $values) {
+		foreach ($list AS $values) {
 			$publication[$list->current()->id]= $list->current()->publication;
 		}
 		$this->view->listPublication = $publication;
@@ -93,43 +93,61 @@ class PublicationController extends IndexController
 	 */
 	public function updateAction()
 	{
+		/**
+		 * @todo catch error if action is not selected from show action
+		 */
 		//update publication or show form
-		if($_POST['status'] == 'update' && isset($_POST['id'])) {
+		if ($this->getRequest()->status == 'update' && isset($this->getRequest()->id)) {
 			
-			//update data
-			$id = $_POST['id'];
-			$data = array('publication' => $_POST['publication']);
+			//UPDATE data
+			$id = $this->getRequest()->id;
+			$publication = array(
+				'publication'  => $this->getRequest()->publication,
+				'publisher_id' => $this->getRequest()->publisher_id
+			);
 			
 			try {
-			$updatePublication = new Application_Model_Publication();
-			$update = $updatePublication->updatePublication($data, $id);
+			$update = $this->_publicationModel->updatePublication($publication, $id);
 			} catch(Exception $e) {
 				$this->view->error = 'update failed: ' . $e->getMessage();
 			}
 		
 		//go to show action if update succeded or display error
-		if($update == 1) {
+		if ($update == 1) {
 			$this->_redirect('publication/show?id=' . $id);			
 		} else {
 			$this->error = 'update failed, please try again';
 		}
-
 		
-		} else if (isset($_GET['id'])) {
+		//show FORM
+		} else {
 			$id = $this->getRequest()->id;
 			
 			//get data for selected publication
-			$getPublication = new Application_Model_Publication();
-			$result = $getPublication->getPublication($id);
-			$data = array(
-				'id'          => $result->current()->id,
-				'publication' => $result->current()->publication);
+			$resultPublication = $this->_publicationModel->getPublication($id);
+			$publicationData = array(
+				'id'          => $resultPublication->current()->id,
+				'publication' => $resultPublication->current()->publication);
+			
+			$publisher = new Application_Model_Publisher();
+			$resultPublisher = $publisher->getPublisherList();
+			$publisherData = array();
+			$resultPublisher->toArray();
+			foreach ($resultPublisher AS $values) {
+				$publisherData[$resultPublisher->current()->id]= $resultPublisher->current()->publisher;
+			}
 			//show form
-			$form = Application_Form_DbForm::updatePublication($data);
+			$currentPublisher = array(
+				$resultPublication->current()->publisher_id,
+				$publisherData[$resultPublication->current()->publisher_id]
+				);
+			$form = Application_Form_DbForm::updatePublication($publicationData,$publisherData,$currentPublisher);
 			$this->view->form = $form;
 		}
+		$this->view->request = $this->getRequest();
+		$this->view->result = $publisherData;
+		$this->view->current = $currentPublisher;
 		
-		else {$this->view->test = 'ELSE';$this->view->request = $this->getRequest()->getParams();}
 	}
 	
 	/**
@@ -138,13 +156,11 @@ class PublicationController extends IndexController
 	 */
 	public function deleteAction()
 	{
-		if(isset($_GET['id'])){
+		if (isset($_GET['id'])) {
 			$id = $_GET['id'];
-		$deletePublication = new Application_Model_Publication();
-		$result = $deletePublication->deletePublication($id);
-		$this->view->deleted = $result;
+			$result = $this->_publicationModel->deletePublication($id);
+			$this->view->deleted = $result;
 		}
 
 	}
 }
-?>

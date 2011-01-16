@@ -4,6 +4,7 @@ require_once 'DbConnection.php';
 class Application_Model_Publisher
 {
 	private $db;
+	private $table;
 	
 	/**
 	 * instantiate db connection
@@ -11,6 +12,11 @@ class Application_Model_Publisher
 	public function __construct() {
 		if(!isset($this->db)) {
 			$this->db = Application_Model_DbConnection::getConnection();
+		}
+		
+		//for active record
+		if(!isset($this->table)) {
+		$this->table = new Application_Model_dbTable_Publisher();
 		}
 	}
 	
@@ -84,6 +90,17 @@ class Application_Model_Publisher
 		$sql = "SELECT * FROM publisher WHERE publisher LIKE '%" . $searchData['string'] . "%' ";
 		$row = $this->db->query($sql);
 		$result = $row->fetchAll(Zend_Db::FETCH_ASSOC);
+		return $result;
+	}
+	
+	
+	/**
+	 * get a list of all publishers with id and name for pulldown menus
+	 * @return array $result
+	 */
+	public function getPublisherList()
+	{
+		$result = $this->table->fetchAll();
 		return $result;
 	}
 }

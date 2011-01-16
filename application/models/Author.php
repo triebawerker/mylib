@@ -1,12 +1,12 @@
 <?php
-class Application_Model_Publication
+class Application_Model_Author
 {
 	private $table;
 	
 	public function __construct()
 	{
 		if(!isset($this->table)) {
-			$this->table = new Application_Model_dbTable_Publication();
+			$this->table = new Application_Model_dbTable_Author();
 		}	
 	}
 	
@@ -15,7 +15,7 @@ class Application_Model_Publication
 	 * Insert new data
 	 * @param array $data
 	 */
-	public function insertPublication($data)
+	public function insertAuthor($data)
 	{
 		$this->table->insert($data);
 	}
@@ -25,7 +25,7 @@ class Application_Model_Publication
 	 * fetch all data
 	 * @return object $result
 	 */
-	public function listPublication()
+	public function listAuthor()
 	{
 		$result = $this->table->fetchAll();
 		return $result;
@@ -36,7 +36,7 @@ class Application_Model_Publication
 	 * get single publication
 	 * @param unknown_type $id
 	 */
-	public function getPublication($id)
+	public function getAuthor($id)
 	{
 		$result = $this->table->find($id);
 		return $result;
@@ -48,10 +48,10 @@ class Application_Model_Publication
 	 * @return void
 	 */
 	
-	public function updatePublication($publication, $id)
+	public function updateAuthor($author, $id)
 	{
 		if(isset($id)){
-		$update = $this->table->update($publication, 'id=' . $id);
+		$update = $this->table->update(Author, 'id=' . $id);
 		}
 		return $update;
 	}
@@ -62,7 +62,7 @@ class Application_Model_Publication
 	 * @param array $data
 	 * @return mixed $add returns key or keys
 	 */
-	public function addPublication($data)
+	public function addAuthor($data)
 	{
 		$add = $this->table->insert($data);
 		return $add;
@@ -74,7 +74,7 @@ class Application_Model_Publication
 	 * @param integer $id
 	 * @return integer $delete number of deleted rows
 	 */
-	public function deletePublication($id)
+	public function deleteAuthor($id)
 	{
 		$where = $this->table->getAdapter()->quoteInto('id = ?', $id);
 		$delete = $this->table->delete($where);

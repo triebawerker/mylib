@@ -15,9 +15,13 @@ class LoginController extends Zend_Controller_Action
 			$auth = Application_Model_AuthModel::setUpAuthAdapter();
 			$auth->setIdentity($username);
 			$auth->setCredential($password);
-			//$auth->setCredentialTreatment('MD5(?)');
+			
+			/**
+			 * @todo $auth->setCredentialTreatment('MD5(?)');
+			 */
 			$result = $auth->authenticate();
 			$code = $result->getCode();
+			//$test = $result->;
 			
 			switch ($code) {
 				case Zend_Auth_Result::FAILURE:
@@ -37,24 +41,34 @@ class LoginController extends Zend_Controller_Action
 			} else if (Zend_Auth_Result::SUCCESS) {
 				$this->view->login = array($username);
 				
-				//set session
+				//get user role
+						//get selected id
+//				$result = $this->_publicationModel->getPublication($id);
+//				$publication = $result->toArray();
+//				$this->view->publication = $publication;
+				
+				$user_role = 'user';
+				
+				//set session for auth: username and role
+				try {
 				$authSession = new Zend_Session_Namespace('auth');
 				$authSession->user = $username;
+				$authSession->role = $user_role;
+				} catch (Zend_Auth_Exception $e) {
+					$this->view->error = 'Session for authorization failed: ' . $e->getMessage();
+				}
+				
+				//set session for access control list
+				$aclSession = new Zend_Session_Namespace('acl');
+				$aclSession->acl = Application_Model_Acl::initAcl();
 			}
-			
+
 			$this->render('login');
 			
 		} else {
 			//get Form
 			$form = Application_Form_AuthForm::formLogin();
 	
-			//get login form
-			$this->_loginForm = new Application_Model_AuthModel();
-
-			$this->view->hello = $this->_loginForm;
-			$this->view->hello = $test;
-			$this->view->cwd = getcwd();
-			#
 	        $this->view->form = $form;
 	        $this->render('index');
 		}

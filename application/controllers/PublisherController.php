@@ -10,7 +10,7 @@ require_once 'IndexController.php';
 
 class PublisherController extends IndexController
 {
-
+	
 	public function preDispatch()
 
     {
@@ -27,9 +27,8 @@ class PublisherController extends IndexController
 	{
 		$id = $this->getRequest()->id;
 		
-		$getPublisher = new Application_Model_Publisher();
 		//get selected id
-		$result = $getPublisher->getPublisher($id);
+		$result = $this->_publisherModel->getPublisher($id);
 		$this->view->publisher = $result;
 	}
 	
@@ -39,12 +38,11 @@ class PublisherController extends IndexController
 		$publisher = $_POST['publisher'];
 		
 		//save publisher
-		$newPublisher = new Application_Model_Publisher();
-		
+	
 		//get result as array: affected rows and publisher
 		//redirect to index if new publisher is stored
 		//else output error message
-		$result = $newPublisher->savePublisher($publisher);
+		$result = $this->_publisherModel->savePublisher($publisher);
 			if($result['affectedRows'] == 1) {
 				$this->_redirect('publisher/index?publisher=' . $result['publisher']);
 			}
@@ -59,8 +57,7 @@ class PublisherController extends IndexController
 	
 	public function listAction()
 	{
-		$listPublisher = new Application_Model_Publisher();
-		$list = $listPublisher->listPublisher();
+		$list = $this->_publisherModel->listPublisher();
 		$this->view->listPublisher = $list;
 	}
 	
@@ -74,10 +71,8 @@ class PublisherController extends IndexController
 			$id = $_POST['id'];
 				
 		//update db
-		$editPublisher = new Application_Model_Publisher();
-		
 		try {
-		$edit = $editPublisher->editPublisher($arrayEdit,$id);
+		$edit = $this->_publisherModel->editPublisher($arrayEdit,$id);
 		} catch (Exception $e) {
 			$this->error = $e->getMessage();
 		}
@@ -92,8 +87,7 @@ class PublisherController extends IndexController
 	    $id = $_GET['id'];
 	    //show form
 	    //get values for selected id
-	    $getPublisher = new Application_Model_Publisher();
-		$result = $getPublisher->getPublisher($id);
+		$result = $this->_publisherModel->getPublisher($id);
 	    
 	    //get form
 	    $form = Application_Form_DbForm::editPublisher($result);
@@ -110,8 +104,7 @@ class PublisherController extends IndexController
 			//search
 			$searchData = array('string' => $_POST['string']);
 			
-			$searchPublisher = new Application_Model_Publisher();
-			$result = $searchPublisher->searchPublisher($searchData);
+			$result = $this->_publisherModel->searchPublisher($searchData);
 			$this->view->result = $result;
 			
 		} else {

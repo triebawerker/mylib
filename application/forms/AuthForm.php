@@ -5,7 +5,7 @@ class Application_Form_AuthForm
 	public static function formLogin()
 	{
 		$form = new Zend_Form();
-		$form->setAction('login/index')
+		$form->setAction('index')
 			 ->setMethod('post');
 		
 		//add Form Elements
