@@ -29,7 +29,12 @@ class PublisherController extends IndexController
 		
 		//get selected id
 		$result = $this->_publisherModel->getPublisher($id);
-		$this->view->publisher = $result;
+		$publisher = $result->toArray();
+		//depending publications
+		$test = $result->current();
+		$publications = $test->findDependentRowset('Application_Model_DbTable_Publication');
+		
+		$this->view->publisher = $publisher;
 	}
 	
 	public function addAction()

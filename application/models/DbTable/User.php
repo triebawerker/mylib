@@ -1,5 +1,5 @@
 <?php
-class Application_Model_dbTable_User
+class Application_Model_DbTable_User
 {
 	protected $_name = 'user';
 	protected $_schema = 'bibliography';

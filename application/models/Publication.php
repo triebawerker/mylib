@@ -6,7 +6,7 @@ class Application_Model_Publication
 	public function __construct()
 	{
 		if(!isset($this->table)) {
-			$this->table = new Application_Model_dbTable_Publication();
+			$this->table = new Application_Model_DbTable_Publication();
 		}	
 	}
 	

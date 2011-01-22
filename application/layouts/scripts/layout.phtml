@@ -13,19 +13,20 @@
       </head>
       <body>
       <div id="header">
-      
-          <div id="header-logo" style="float: left">
-              <a href="<?php echo $this->url(array('controller'=>'index'),'default', true) ?>">My Bibliography</a>
-          </div>
-          <div id="header-navigation" style="float: right">
+          <div id="header-navigation" style="float: left">
               <a href="<?php echo $this->url(array('controller'=>'guestbook'),'default', true) ?>">Guestbook</a>
               <a href="<?php echo $this->url(array('controller'=>'publisher'),'default', true) ?>">Publisher</a>
               <a href="<?php echo $this->url(array('controller'=>'publication'),'default', true) ?>">Publication</a>
               <a href="<?php echo $this->url(array('controller'=>'author'),'default', true) ?>">Author</a>
               <a href="<?php echo $this->url(array('controller'=>'login'),'default', true) ?>">Login</a>
           </div>
-          <p> You are logged in as: <?php echo $this->auth; ?></p>
-          <p> with role: <?php echo $this->role; ?></p>
+          <div id="header-logo" style="float: right">
+              <a href="<?php echo $this->url(array('controller'=>'index'),'default', true) ?>">My Bibliography</a>
+              <p> You are logged in as: <?php echo $this->auth; ?></p>
+          	  <p> with role: <?php echo $this->role; ?></p>
+          </div>
+
+
       </div>
       <div id="sidebar">
       <p>sidebar</p>

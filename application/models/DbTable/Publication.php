@@ -1,10 +1,15 @@
 <?php
-class Application_Model_dbTable_Publisher extends Zend_Db_Table_Abstract
+class Application_Model_DbTable_Publication extends Zend_Db_Table_Abstract
 {
-	protected $_name = 'publisher';
+	protected $_name = 'publication';
 	protected $_schema = 'bibliography';
 	protected $_primary = 'id';
 	protected $_sequence = true;
+
+	protected $dependentTables = array('Application_Model_DbTable_Publisher');
+
+	
+	 
 	
 	private $db;
 	
@@ -17,5 +22,6 @@ class Application_Model_dbTable_Publisher extends Zend_Db_Table_Abstract
 		$this->_setAdapter($this->db);
 		parent::__construct();
 	}
+	
 }
 ?>

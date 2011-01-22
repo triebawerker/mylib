@@ -16,7 +16,7 @@ class Application_Model_Publisher
 		
 		//for active record
 		if(!isset($this->table)) {
-		$this->table = new Application_Model_dbTable_Publisher();
+		$this->table = new Application_Model_DbTable_Publisher();
 		}
 	}
 	
@@ -47,15 +47,7 @@ class Application_Model_Publisher
 	
 	public function getPublisher($id)
 	{
-		$sql = "SELECT id, publisher FROM publisher WHERE id = $id";
-		/*
-		 * @todo bind param
-		 */
-//		$stmt = $this->db->prepare($sql);
-//		$stmt->bindParam(':id', $id);
-		
-		$row = $this->db->query($sql);
-		$result = $row->fetch(Zend_Db::FETCH_ASSOC); 
+		$result = $this->table->find($id);
 		return $result;
 	}
 	

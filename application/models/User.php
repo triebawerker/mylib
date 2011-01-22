@@ -1,5 +1,5 @@
 <?php
-class Application_Model_User
+class Model_User
 {
 	private $table;
 	

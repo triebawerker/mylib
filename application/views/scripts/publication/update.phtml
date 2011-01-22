@@ -2,5 +2,5 @@ update form
 <?php
 echo $this->form . "<br>";
 echo $this->error . "<br>";
-//var_dump($this->request);
-var_dump($this->current);
+?>
+<p><a href="<?php echo $this->url(array('action' => 'addauthor'))?>?id=<?php echo $_GET['id'] ?>">add author</a></p>

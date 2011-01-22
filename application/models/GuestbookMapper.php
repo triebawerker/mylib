@@ -1,5 +1,5 @@
 <?php
-require_once 'dbTable/Guestbook.php';
+require_once 'DbTable/Guestbook.php';
 
 /**
  * Guestbook data mapper

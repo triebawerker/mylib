@@ -1,5 +1,4 @@
-@CHARSET "UTF-8";
-
+*{padding:0;margin:0;}
 body{
 	font-family:arial,verdana,helvetica,non-serif;
 	font-size:65%;
@@ -8,13 +7,13 @@ body{
 #sidebar{
 	float:left;
 	background-color: yellow;
-	width:400px;
+	width:200px;
 	padding:10px;
 }
 #content{
 	float:left;
 	background-color: #777777;
-	width:400px;
+	width:600px;
 	padding:10px;
 }
 
@@ -31,4 +30,22 @@ body{
 	width:800px;
 	padding:20px;
 	background-color: green;
+}
+
+form{
+	 width:312px;background-color:#CCC
+}
+form dt{
+	float:left; width:100px; height:25px; background-color:#999;
+	padding:3px;
+}
+form dd{
+	float:left; width:200px; height:25px; background-color:#b3b3b3;padding:3px;
+}
+.publication-label{
+	background-color:green;
+}
+
+td{
+	background-color:#b3b3b3; padding:1px;
 }

@@ -1,25 +1,20 @@
 <?php
-class Application_Model_dbTable_Publication extends Zend_Db_Table_Abstract
+class Application_Model_DbTable_Publisher extends Zend_Db_Table_Abstract
 {
-	protected $_name = 'publication';
+	protected $_name = 'publisher';
 	protected $_schema = 'bibliography';
 	protected $_primary = 'id';
 	protected $_sequence = true;
-
-	protected $dependentTables = array('publisher','publicationAuthor');
-	protected $referenceMap = array(
-		'publisher' => array(
+	protected $_dependentTables = array('Application_Model_DbTable_Publication');
+		protected $referenceMap = array(
+		'publication' => array(
 			'columns'       => 'publisher_id',
-			'refTableClass' => 'Publication',
+			'refTableClass' => 'Application_Model_DbTable_Publication',
 			'refColumn'     => 'id',
 			'onDelete'      => self::CASCADE,
 			'onUpdate' 	    => self::CASCADE
 			)
-		);
-		
-	
-	 
-	
+		);	
 	private $db;
 	
 	public function __construct()
@@ -31,6 +26,5 @@ class Application_Model_dbTable_Publication extends Zend_Db_Table_Abstract
 		$this->_setAdapter($this->db);
 		parent::__construct();
 	}
-	
 }
 ?>

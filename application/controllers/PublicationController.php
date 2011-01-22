@@ -129,18 +129,22 @@ class PublicationController extends IndexController
 				'id'          => $resultPublication->current()->id,
 				'publication' => $resultPublication->current()->publication);
 			
+			//get data for publisher
 			$publisher = new Application_Model_Publisher();
 			$resultPublisher = $publisher->getPublisherList();
-			$publisherData = array();
 			$resultPublisher->toArray();
+			
 			foreach ($resultPublisher AS $values) {
 				$publisherData[$resultPublisher->current()->id]= $resultPublisher->current()->publisher;
 			}
-			//show form
+			
+			//current publisher
 			$currentPublisher = array(
 				$resultPublication->current()->publisher_id,
 				$publisherData[$resultPublication->current()->publisher_id]
 				);
+				
+			//FORM
 			$form = Application_Form_DbForm::updatePublication($publicationData,$publisherData,$currentPublisher);
 			$this->view->form = $form;
 		}
@@ -148,6 +152,33 @@ class PublicationController extends IndexController
 		$this->view->result = $publisherData;
 		$this->view->current = $currentPublisher;
 		
+	}
+	
+	/**
+	 * add author action
+	 * add 1 to n authors for one publication
+	 */
+	public function addauthorAction()
+	{
+		//display publication
+		$id = $this->getRequest()->id;
+		
+		//get selected id
+		$result = $this->_publicationModel->getPublication($id);
+		$publication = $result->toArray();
+		
+		$test = $result->current();
+		$publisher = $test->findDependentRowset('Application_Model_dbTable_Publisher', 'publication');
+		//$publisherName = $publisher->publisher;
+		
+		$this->view->publication = $publication;
+		$this->view->publisher = $publisher;
+		
+		//get Author
+		
+		
+		
+		//FORM
 	}
 	
 	/**

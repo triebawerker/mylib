@@ -1,0 +1,16 @@
+      <?php $this->placeholder('sidebar')->captureStart() ?>
+      <h4>Author</h4>
+      <ul>
+		
+        <li><a href="<?php echo $this->url(array('action'=>'list')) ?>">list</a></li>
+        <li><a href="<?php echo $this->url(array('action' => 'search')) ?>">search</a></li>
+        <?php //var_dump($this->acl); ?>
+        <?php 
+        //rolle aus userdaten auslesen, dann funktioniert das auch
+        //if ($this->acl->isAllowed($this->role, null , '')): ?>
+        <li><a href="<?php echo $this->url(array('action' => 'insert')) ?>">add</a></li>
+        <li><a href="<?php echo $this->url(array('action' => 'update')) ?>?id=<?php echo $_GET['id']?>">edit</a></li>
+        <li><a href="<?php echo $this->url(array('action' => 'delete')) ?>?id=<?php echo $_GET['id']?>">delete</a></li>
+      	<?php //endif; ?>
+      </ul>
+      <?php $this->placeholder('sidebar')->captureEnd() ?>
